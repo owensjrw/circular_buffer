@@ -41,22 +41,20 @@ static size_t is_full(circular_buffer_t *buffer){
 *Writes uint8_t size variables to buffer slots if buffer not full             *
 ******************************************************************************/
 
-uint16_t write(circular_buffer_t *buffer, buffer_value_t value){
+void write(circular_buffer_t *buffer, buffer_value_t value){
   if(is_full(buffer)){
     errno = ENOBUFS;
-    return EXIT_FAILURE;
   }
   buffer->ring[buffer->write] = value;
   move_by_one(buffer, &buffer->write);
-  buffer->slots_used += 1;
-  return EXIT_SUCCESS;
+  buffer->slots_used++;
 }
 
 /******************************************************************************
 *Overwrites uint8_t size variables to buffer slots if buffer full             *
 ******************************************************************************/
 
-uint16_t overwrite(circular_buffer_t *buffer, buffer_value_t value){
+void overwrite(circular_buffer_t *buffer, buffer_value_t value){
   if(!is_full(buffer)){
     write(buffer, value);
   } else {
@@ -64,7 +62,6 @@ uint16_t overwrite(circular_buffer_t *buffer, buffer_value_t value){
     move_by_one(buffer, &buffer->read);
     move_by_one(buffer, &buffer->write);
   }
-  return EXIT_SUCCESS;
 }
 
 /******************************************************************************
@@ -72,15 +69,13 @@ uint16_t overwrite(circular_buffer_t *buffer, buffer_value_t value){
 *After read moves tail by one slot forward (pop() oldest data FIFO)           *
 ******************************************************************************/
 
-uint16_t read(circular_buffer_t *buffer, buffer_value_t *read_value){
+void read(circular_buffer_t *buffer, buffer_value_t *read_value){
   if(is_empty(buffer)){
     errno = ENODATA;
-    return EXIT_FAILURE;
   }
   *read_value = buffer->ring[buffer->read];
   move_by_one(buffer, &buffer->read);
-  buffer->slots_used -= 1;
-  return EXIT_SUCCESS;
+  buffer->slots_used--;
 }
 
 /******************************************************************************
