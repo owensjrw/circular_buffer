@@ -16,9 +16,9 @@ typedef struct circular_buffer circular_buffer_t;
 /******************************************************************************
 *Signatures of functions in the .c file                                       *
 ******************************************************************************/
-uint16_t write(circular_buffer_t *buffer, buffer_value_t value);
-uint16_t overwrite(circular_buffer_t *buffer, buffer_value_t value);
-uint16_t read(circular_buffer_t *buffer, buffer_value_t *read_value);
+void write(circular_buffer_t *buffer, buffer_value_t value);
+void overwrite(circular_buffer_t *buffer, buffer_value_t value);
+void read(circular_buffer_t *buffer, buffer_value_t *read_value);
 circular_buffer_t *new_circular_buffer(size_t capacity);
 void delete_buffer(circular_buffer_t *buffer);
 void clear_buffer(circular_buffer_t *buffer);
