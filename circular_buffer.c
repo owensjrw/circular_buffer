@@ -23,7 +23,7 @@ struct circular_buffer {
 ******************************************************************************/
 
 static void move_by_one(circular_buffer_t *buffer, size_t *read_write){
-  *read_write += 1;
+  *read_write++;
   if(*read_write == buffer->max_ring_size){
     *read_write = 0;
   }
