@@ -11,6 +11,7 @@
 *Templates circular_buffer
 ******************************************************************************/
 typedef uint8_t buffer_value_t;
+//typedef void buffer_value_t; <-- How to implement this??
 typedef struct circular_buffer circular_buffer_t;
 
 /******************************************************************************
